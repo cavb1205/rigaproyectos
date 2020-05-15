@@ -1,0 +1,61 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content{
+    margin: 10% auto;
+    max-width: 1000px;
+    height: auto;
+    padding: 20px;
+    text-align: center;
+    align-items: center;
+}
+
+img {
+    width: 100%;
+}
+
+h2,h3 {
+    color:#D2B36A;
+}
+
+a{
+    text-decoration: none;
+    
+}
+
+
+.social-media {
+    
+    width: 100%;
+    height: auto;
+    display: inline-block;
+    text-align: center;
+    margin: 20px 0;
+    
+    
+    
+    
+}
+
+.social-media a{
+    justify-content: center;
+    color: #D2B36A;
+    text-align: center;
+    
+    
+
+}
+
+.social-media a span:before{
+    margin: 0;
+    font-size: 30px;
+}
+
+/*#D2B36A  dorado
