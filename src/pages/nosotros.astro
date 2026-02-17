@@ -16,9 +16,30 @@ const { mision_texto, vision_texto, mensaje_gerente, imagen_gerente } =
     acf || {};
 
 // 3. Manejo de errores si no hay foto de gerente
-const fotoGerenteUrl = imagen_gerente
-    ? imagen_gerente.url
-    : "/placeholder-user.jpg";
+let fotoGerenteUrl = "/placeholder-user.jpg";
+
+if (imagen_gerente) {
+    if (typeof imagen_gerente === "number") {
+        // Es un ID, necesitamos obtener la URL de la API de medios
+        try {
+            const mediaRes = await fetch(
+                `https://riga-api.vnfcdx.easypanel.host/wp-json/wp/v2/media/${imagen_gerente}`,
+            );
+            if (mediaRes.ok) {
+                const mediaData = await mediaRes.json();
+                fotoGerenteUrl = mediaData.source_url || fotoGerenteUrl;
+            }
+        } catch (e) {
+            console.error("Error fetching gerente image:", e);
+        }
+    } else if (imagen_gerente.url) {
+        // Es un objeto (lo ideal)
+        fotoGerenteUrl = imagen_gerente.url;
+    } else if (typeof imagen_gerente === "string") {
+        // Es una URL directa
+        fotoGerenteUrl = imagen_gerente;
+    }
+}
 ---
 
 <Layout title={title ? title.rendered : "Nosotros - Riga Proyectos"}>
@@ -110,9 +131,7 @@ const fotoGerenteUrl = imagen_gerente
                             >
                             </div>
                             <img
-                                src={imagen_gerente
-                                    ? imagen_gerente.url
-                                    : fotoGerenteUrl}
+                                src={fotoGerenteUrl}
                                 alt="Director General"
                                 class="relative z-10 w-64 h-80 object-cover shadow-2xl grayscale hover:grayscale-0 transition duration-500"
                             />
@@ -146,7 +165,7 @@ const fotoGerenteUrl = imagen_gerente
                             <p
                                 class="text-white font-bold uppercase tracking-wider"
                             >
-                                Ing. Camilo Rincón
+                                CRISTHIAN GALEANO M.
                             </p>
                             <p class="text-accent text-sm">Director General</p>
                         </div>
