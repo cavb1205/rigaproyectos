@@ -1,0 +1,154 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getProjects, getServices } from '../lib/wordpress';
+
+// Fetch data
+const projects = await getProjects();
+const services = await getServices();
+---
+
+<Layout title="Riga Proyectos - Construcción en Colombia">
+  <!-- Hero Section -->
+  <section class="h-screen relative flex items-center justify-center bg-[url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2670')] bg-cover bg-center text-white">
+    <div class="absolute inset-0 bg-black/60 z-0"></div> <!-- Overlay -->
+    <div class="z-10 text-center max-w-4xl px-4">
+      <h1 class="text-6xl md:text-8xl font-bold uppercase tracking-wide mb-4">
+        RIGA <span class="text-accent font-light">Proyectos</span>
+      </h1>
+      <p class="text-xl md:text-2xl font-light tracking-widest uppercase mb-8 border-t border-b border-accent py-4 inline-block">
+        Construyendo el futuro desde 2026
+      </p>
+      <div class="mt-8">
+        <a href="#proyectos" class="bg-accent text-black font-bold py-3 px-8 rounded-none uppercase tracking-wider hover:bg-white hover:text-accent transition duration-300">
+          Ver Proyectos
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Preview (Misión/Visión Snippet) -->
+  <section class="py-20 bg-light text-primary">
+    <div class="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <h2 class="text-5xl font-bold text-primary mb-6 uppercase">
+          Nuestra <span class="text-accent">Esencia</span>
+        </h2>
+        <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+          Somos una empresa alternativa con ideas innovadoras y diversas que permiten proyectos potencialmente cualitativos, financieros, conscientes del medio ambiente.
+        </p>
+        <a href="/nosotros" class="text-accent font-bold uppercase tracking-wider border-b-2 border-accent pb-1 hover:text-primary transition">
+          Conoce más sobre nosotros
+        </a>
+      </div>
+      <div class="relative bg-concrete p-8 shadow-xl">
+        <div class="absolute -top-4 -left-4 w-20 h-20 bg-accent z-0"></div>
+        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=2689&auto=format&fit=crop" alt="Construcción" class="relative z-10 w-full h-64 object-cover grayscale hover:grayscale-0 transition duration-500" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Projects -->
+  <section id="proyectos" class="py-24 bg-primary text-white relative overflow-hidden">
+    <!-- Background Watermark -->
+    <div class="absolute top-0 right-0 text-[20rem] font-bold text-white opacity-5 pointer-events-none leading-none select-none">
+      7
+    </div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+        <div>
+           <h2 class="text-5xl md:text-6xl font-bold uppercase mb-2">Proyectos</h2>
+           <div class="h-2 w-32 bg-accent"></div>
+        </div>
+        <p class="text-xl text-gray-400 max-w-md text-right mt-4 md:mt-0 font-light">
+          Destacados en arquitectura y diseño
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {projects.map((project) => (
+          <article class="group relative overflow-hidden h-96 cursor-pointer">
+            {project._embedded && project._embedded['wp:featuredmedia'] ? (
+              <img 
+                src={project._embedded['wp:featuredmedia'][0].source_url} 
+                alt={project.title.rendered} 
+                class="w-full h-full object-cover transition duration-700 group-hover:scale-110 group-hover:opacity-40 opacity-80"
+              />
+            ) : (
+               <div class="w-full h-full bg-gray-800 flex items-center justify-center text-gray-500">
+                  Sin imagen
+               </div>
+            )}
+            
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-8 flex flex-col justify-end transform translate-y-4 group-hover:translate-y-0 transition duration-300">
+              <h3 class="text-2xl font-bold text-white mb-2 uppercase tracking-wide border-l-4 border-accent pl-4" set:html={project.title.rendered} />
+              <div class="pl-4 text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition duration-500 delay-100 line-clamp-3" set:html={project.content.rendered} />
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="py-20 bg-[url('https://www.transparenttextures.com/patterns/concrete-wall.png')] bg-concrete relative">
+    <div class="container mx-auto px-4">
+      <h2 class="text-4xl md:text-5xl font-bold text-center text-primary mb-16 uppercase relative inline-block w-full">
+        <span class="relative z-10 border-b-4 border-accent pb-2">Nuestros Servicios</span>
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-y-12 gap-x-8">
+        {services.map((service) => (
+          <div class="relative group bg-white p-8 shadow-sm hover:shadow-xl transition duration-300 border-t-4 border-transparent hover:border-accent">
+            <h3 class="text-2xl font-bold text-primary mb-4 uppercase flex items-center">
+              <span class="w-2 h-2 bg-accent mr-3"></span>
+              <span set:html={service.title.rendered} />
+            </h3>
+            <div class="text-gray-600 font-light text-sm leading-relaxed mb-4 line-clamp-4" set:html={service.content.rendered} />
+            <a href="#" class="text-accent text-sm font-bold uppercase tracking-wider hover:text-primary transition">Leer más -></a>
+          </div>
+        ))}
+
+        {services.length === 0 && (
+          <div class="col-span-3 text-center text-gray-500 py-10">
+            Cargando servicios...
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-primary text-white py-12 border-t border-gray-800">
+    <div class="container mx-auto px-4 grid md:grid-cols-4 gap-8">
+      <div class="col-span-1 md:col-span-2">
+        <h2 class="text-4xl font-bold uppercase mb-4 tracking-tighter">RIGA <span class="text-accent">Proyectos</span></h2>
+        <p class="text-gray-500 max-w-sm">
+          Comprometidos con el desarrollo de infraestructura de alta calidad, combinando innovación y sostenibilidad.
+        </p>
+      </div>
+      
+      <div>
+        <h4 class="text-lg font-bold uppercase text-accent mb-4">Contacto</h4>
+        <ul class="text-gray-400 space-y-2 font-light text-sm">
+          <li>Bogotá, Colombia</li>
+          <li>info@rigaproyectos.com</li>
+          <li>+57 322 258 0860</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-lg font-bold uppercase text-accent mb-4">Menú</h4>
+        <ul class="text-gray-400 space-y-2 font-light text-sm">
+          <li><a href="#" class="hover:text-white transition">Inicio</a></li>
+          <li><a href="#proyectos" class="hover:text-white transition">Proyectos</a></li>
+          <li><a href="/nosotros" class="hover:text-white transition">Nosotros</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-gray-800 mt-12 pt-8 text-center text-xs text-gray-600 uppercase tracking-widest">
+      &copy; 2026 Riga Proyectos S.A.S. Todos los derechos reservados.
+    </div>
+  </footer>
+
+</Layout>

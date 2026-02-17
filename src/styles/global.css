@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+:root {
+  /* Colors extracted from the images */
+  --color-primary: #121212; /* Dark/Black */
+  --color-accent: #C5A059;  /* Gold/Mustard */
+  --color-light: #F9F9F7;   /* Off-white/Cream */
+  --color-concrete: #E5E5E5; /* Light grey */
+}
+
+@theme {
+  --color-primary: var(--color-primary);
+  --color-accent: var(--color-accent);
+  --color-light: var(--color-light);
+  --color-concrete: var(--color-concrete);
+  
+  --font-display: 'Oswald', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-light);
+  color: var(--color-primary);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}

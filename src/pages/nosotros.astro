@@ -1,0 +1,209 @@
+---
+// src/pages/nosotros.astro
+import Layout from "../layouts/Layout.astro";
+import { getPageData } from "../lib/wordpress";
+
+// 1. Llamamos a la API
+const page = await getPageData("empresa");
+
+if (!page) {
+    return Astro.redirect("/404");
+}
+
+// 2. Extraemos los datos
+const { title, acf } = page;
+const { mision_texto, vision_texto, mensaje_gerente, imagen_gerente } =
+    acf || {};
+
+// 3. Manejo de errores si no hay foto de gerente
+const fotoGerenteUrl = imagen_gerente
+    ? imagen_gerente.url
+    : "/placeholder-user.jpg";
+---
+
+<Layout title={title ? title.rendered : "Nosotros - Riga Proyectos"}>
+    <!-- Hero Section (Mini) -->
+    <section
+        class="h-64 relative flex items-center justify-center bg-[url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2670')] bg-cover bg-center text-white"
+    >
+        <div class="absolute inset-0 bg-primary/80 z-0"></div>
+        <div class="z-10 text-center">
+            <h1
+                class="text-5xl md:text-6xl font-bold uppercase tracking-wide"
+                set:html={title.rendered}
+            />
+            <div class="h-1 w-20 bg-accent mx-auto mt-4"></div>
+        </div>
+    </section>
+
+    <main>
+        <!-- Misión y Visión Section -->
+        <section
+            class="py-20 bg-light bg-[url('https://www.transparenttextures.com/patterns/concrete-wall.png')]"
+        >
+            <div class="container mx-auto px-4">
+                <div class="grid md:grid-cols-2 gap-16">
+                    <!-- Misión -->
+                    <div class="relative group">
+                        <div
+                            class="absolute -top-4 -left-4 w-16 h-16 bg-accent/20 z-0 group-hover:bg-accent/40 transition"
+                        >
+                        </div>
+                        <div
+                            class="relative z-10 bg-white p-10 shadow-lg border-t-4 border-accent h-full"
+                        >
+                            <h2
+                                class="text-3xl font-bold text-primary mb-6 uppercase flex items-center gap-3"
+                            >
+                                <span class="text-accent text-4xl">01.</span> Misión
+                            </h2>
+                            <p
+                                class="text-gray-600 leading-loose text-lg font-light text-justify"
+                            >
+                                {mision_texto}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Visión -->
+                    <div class="relative group">
+                        <div
+                            class="absolute -bottom-4 -right-4 w-16 h-16 bg-primary/10 z-0 group-hover:bg-primary/20 transition"
+                        >
+                        </div>
+                        <div
+                            class="relative z-10 bg-white p-10 shadow-lg border-t-4 border-primary h-full"
+                        >
+                            <h2
+                                class="text-3xl font-bold text-primary mb-6 uppercase flex items-center gap-3"
+                            >
+                                <span class="text-primary text-4xl">02.</span> Visión
+                            </h2>
+                            <p
+                                class="text-gray-600 leading-loose text-lg font-light text-justify"
+                            >
+                                {vision_texto}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mensaje del Gerente Section -->
+        <section class="py-20 bg-primary text-white relative overflow-hidden">
+            <!-- Background Decor -->
+            <div
+                class="absolute top-0 right-0 text-[15rem] font-bold text-white opacity-5 pointer-events-none leading-none select-none font-display"
+            >
+                R
+            </div>
+
+            <div class="container mx-auto px-4 relative z-10">
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div
+                        class="w-full md:w-1/3 flex justify-center md:justify-end"
+                    >
+                        <div class="relative">
+                            <div
+                                class="absolute inset-0 border-2 border-accent translate-x-4 translate-y-4"
+                            >
+                            </div>
+                            <img
+                                src={imagen_gerente
+                                    ? imagen_gerente.url
+                                    : fotoGerenteUrl}
+                                alt="Director General"
+                                class="relative z-10 w-64 h-80 object-cover shadow-2xl grayscale hover:grayscale-0 transition duration-500"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-2/3">
+                        <h3
+                            class="text-accent text-xl font-bold uppercase tracking-widest mb-2"
+                        >
+                            Liderazgo
+                        </h3>
+                        <h2
+                            class="text-4xl font-bold text-white mb-8 uppercase"
+                        >
+                            Mensaje del Director
+                        </h2>
+
+                        <div class="relative pl-8 border-l-2 border-gray-700">
+                            <span
+                                class="absolute -top-4 left-4 text-6xl text-gray-700 font-serif"
+                                >“</span
+                            >
+                            <div
+                                set:html={mensaje_gerente}
+                                class="text-gray-300 text-lg leading-relaxed italic font-light space-y-4"
+                            />
+                        </div>
+
+                        <div class="mt-8">
+                            <p
+                                class="text-white font-bold uppercase tracking-wider"
+                            >
+                                Ing. Camilo Rincón
+                            </p>
+                            <p class="text-accent text-sm">Director General</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (mismo que index) -->
+    <footer class="bg-black text-white py-12 border-t border-gray-900">
+        <div class="container mx-auto px-4 grid md:grid-cols-4 gap-8">
+            <div class="col-span-1 md:col-span-2">
+                <h2 class="text-4xl font-bold uppercase mb-4 tracking-tighter">
+                    RIGA <span class="text-accent">Proyectos</span>
+                </h2>
+                <p class="text-gray-500 max-w-sm">
+                    Comprometidos con el desarrollo de infraestructura de alta
+                    calidad.
+                </p>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold uppercase text-accent mb-4">
+                    Contacto
+                </h4>
+                <ul class="text-gray-400 space-y-2 font-light text-sm">
+                    <li>Bogotá, Colombia</li>
+                    <li>info@rigaproyectos.com</li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold uppercase text-accent mb-4">
+                    Menú
+                </h4>
+                <ul class="text-gray-400 space-y-2 font-light text-sm">
+                    <li>
+                        <a href="/" class="hover:text-white transition"
+                            >Inicio</a>
+                    </li>
+                    <li>
+                        <a
+                            href="/#proyectos"
+                            class="hover:text-white transition">Proyectos</a>
+                    </li>
+                    <li>
+                        <a href="/nosotros" class="hover:text-white transition"
+                            >Nosotros</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div
+            class="border-t border-gray-900 mt-12 pt-8 text-center text-xs text-gray-600 uppercase tracking-widest"
+        >
+            &copy; 2026 Riga Proyectos S.A.S.
+        </div>
+    </footer>
+</Layout>
