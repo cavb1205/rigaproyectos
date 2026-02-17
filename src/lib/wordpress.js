@@ -18,3 +18,15 @@ export async function getServices() {
   const data = await res.json();
   return data;
 }
+
+export async function getSiteConfig() {
+    // Obtenemos la página de configuración (slug: configuracion-web)
+    // Usamos getPageData que ya hace exactamente esto
+    const configPage = await getPageData('configuracion-web');
+    
+    if (!configPage || !configPage.acf) {
+        return null; // O devolver un objeto por defecto
+    }
+
+    return configPage.acf;
+}
