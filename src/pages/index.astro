@@ -3,8 +3,11 @@ import Layout from '../layouts/Layout.astro';
 import { getProjects, getServices } from '../lib/wordpress';
 
 // Fetch data
-const projects = await getProjects();
-const services = await getServices();
+const projectsData = await getProjects();
+const servicesData = await getServices();
+
+const projects = Array.isArray(projectsData) ? projectsData : [];
+const services = Array.isArray(servicesData) ? servicesData : [];
 ---
 
 <Layout title="Riga Proyectos - Construcción en Colombia">
