@@ -9,7 +9,6 @@ import Analytics from "@vercel/analytics/astro";
 const configPage = await getPageData("configuracion-web");
 const config = configPage ? configPage.acf : {};
 
-// Extraer datos o usar fallbacks
 const logoUrl = config.logo_principal
     ? // Si el logo es un ID (numero), necesitariamos hacer otro fetch, pero ACF suele devolver el objeto si esta configurado como 'Image Object'.
       // Segun tu JSON: "logo_principal": 43. Es un ID.
