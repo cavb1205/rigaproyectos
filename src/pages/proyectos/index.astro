@@ -1,0 +1,82 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getProjects } from '../../lib/wordpress';
+
+const projectsData = await getProjects();
+const projects = Array.isArray(projectsData) ? projectsData : [];
+---
+
+<Layout title="Nuestros Proyectos | Riga Proyectos">
+  <!-- Header Section -->
+  <section class="bg-primary text-white pt-32 pb-20 relative overflow-hidden">
+    <div class="absolute top-0 right-0 text-[15rem] font-bold text-white opacity-5 pointer-events-none leading-none select-none">
+      R
+    </div>
+    <div class="container mx-auto px-4 relative z-10">
+      <h1 class="text-6xl md:text-7xl font-bold uppercase mb-4 tracking-tighter">
+        Portafolio de <span class="text-accent">Proyectos</span>
+      </h1>
+      <div class="h-1 w-24 bg-accent mb-8"></div>
+      <p class="text-xl text-gray-400 max-w-2xl font-light uppercase tracking-widest leading-relaxed">
+        Cada obra es un testimonio de nuestra pasión por la excelencia técnica y el diseño innovador.
+      </p>
+    </div>
+  </section>
+
+  <!-- Projects Grid -->
+  <section class="py-24 bg-light">
+    <div class="container mx-auto px-4">
+      {projects.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {projects.map((project) => (
+            <a href={`/proyectos/${project.slug}`} class="group block bg-white shadow-sm hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden">
+              <div class="relative h-80 overflow-hidden bg-gray-200">
+                {project._embedded && project._embedded['wp:featuredmedia'] ? (
+                  <img 
+                    src={project._embedded['wp:featuredmedia'][0].source_url} 
+                    alt={project.title.rendered} 
+                    class="w-full h-full object-cover transition duration-700 group-hover:scale-110"
+                  />
+                ) : (
+                  <div class="w-full h-full flex items-center justify-center text-gray-400 uppercase tracking-widest text-xs">
+                    Sin imagen destacada
+                  </div>
+                )}
+                <!-- Overlay with details on hover -->
+                <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                  <span class="bg-accent text-primary font-bold px-6 py-2 uppercase tracking-widest text-sm">Ver Proyecto</span>
+                </div>
+              </div>
+              
+              <div class="p-8 border-b-4 border-transparent group-hover:border-accent transition-colors duration-500">
+                 <div class="flex items-center gap-2 mb-3">
+                    <span class="h-[1px] w-6 bg-accent"></span>
+                    <span class="text-accent text-xs font-bold uppercase tracking-widest">
+                       {project._embedded && project._embedded['wp:term'] && project._embedded['wp:term'][0] ? project._embedded['wp:term'][0].map(term => term.name).join(', ') : 'Proyecto'}
+                    </span>
+                 </div>
+                <h2 class="text-2xl font-bold text-primary uppercase tracking-tight mb-3 group-hover:text-accent transition-colors" set:html={project.title.rendered} />
+                <p class="text-gray-500 text-sm font-light line-clamp-2" set:html={project.acf?.ubicacion_obra || 'Colombia'} />
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-20">
+          <p class="text-gray-500 uppercase tracking-widest">No se encontraron proyectos publicados en este momento.</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-concrete border-t border-gray-200">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-primary uppercase mb-8 tracking-tighter">¿Tienes un proyecto en mente?</h2>
+      <a href="/contacto" class="inline-flex items-center gap-4 bg-primary text-white font-bold py-4 px-10 hover:bg-accent hover:text-primary transition duration-300 uppercase tracking-widest">
+        Trabajemos Juntos
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </a>
+    </div>
+  </section>
+</Layout>

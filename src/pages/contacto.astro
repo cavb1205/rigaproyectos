@@ -1,0 +1,243 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getSiteConfig } from "../lib/wordpress.js";
+
+const config = (await getSiteConfig()) || {};
+---
+
+<Layout title="Contacto | Riga Proyectos">
+    <!-- Hero Section -->
+    <section class="bg-primary text-white pt-32 pb-20 relative overflow-hidden">
+        <div
+            class="absolute top-0 right-0 text-[15rem] font-bold text-white opacity-5 pointer-events-none leading-none select-none"
+        >
+            C
+        </div>
+        <div class="container mx-auto px-4 relative z-10 text-center">
+            <h1
+                class="text-6xl md:text-8xl font-bold uppercase mb-6 tracking-tighter"
+            >
+                Estemos en <span class="text-accent">Contacto</span>
+            </h1>
+            <p
+                class="text-xl text-gray-400 max-w-2xl mx-auto font-light uppercase tracking-widest leading-relaxed"
+            >
+                Cuéntanos tu proyecto y construyamos juntos el futuro de la
+                infraestructura.
+            </p>
+        </div>
+    </section>
+
+    <section class="py-24 bg-light relative">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <!-- Contact Information -->
+                <div class="space-y-16 text-center">
+                    <div>
+                        <h2
+                            class="text-4xl md:text-5xl font-bold text-primary uppercase mb-8 tracking-tight"
+                        >
+                            Información de <span class="text-accent"
+                                >Contacto</span
+                            >
+                        </h2>
+                        <p
+                            class="text-lg text-gray-600 font-light mb-12 max-w-2xl mx-auto"
+                        >
+                            Estamos listos para atenderte desde nuestras
+                            oficinas o a través de nuestros canales digitales.
+                        </p>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 gap-8 text-left">
+                        <!-- Address -->
+                        {
+                            config.direccion_oficina && (
+                                <div class="bg-white p-10 shadow-sm border-t-4 border-accent hover:shadow-xl transition duration-500">
+                                    <span class="text-5xl mb-6 block">📍</span>
+                                    <h3 class="text-xs font-bold text-accent uppercase tracking-[0.2em] mb-3">
+                                        Ubicación
+                                    </h3>
+                                    <p class="text-primary font-medium text-lg leading-relaxed">
+                                        {config.direccion_oficina}
+                                    </p>
+                                </div>
+                            )
+                        }
+
+                        <!-- Phone -->
+                        {
+                            config.telefono_contacto && (
+                                <div class="bg-white p-10 shadow-sm border-t-4 border-accent hover:shadow-xl transition duration-500">
+                                    <span class="text-5xl mb-6 block">📞</span>
+                                    <h3 class="text-xs font-bold text-accent uppercase tracking-[0.2em] mb-3">
+                                        Teléfonos
+                                    </h3>
+                                    <div class="space-y-2">
+                                        <a
+                                            href={`tel:${config.telefono_contacto}`}
+                                            class="text-primary font-bold text-xl block hover:text-accent transition"
+                                        >
+                                            {config.telefono_contacto}
+                                        </a>
+                                        {config.telefono_contacto_opcional && (
+                                            <a
+                                                href={`tel:${config.telefono_contacto_opcional}`}
+                                                class="text-gray-500 font-light block hover:text-accent transition"
+                                            >
+                                                {
+                                                    config.telefono_contacto_opcional
+                                                }
+                                            </a>
+                                        )}
+                                    </div>
+                                </div>
+                            )
+                        }
+
+                        <!-- Email -->
+                        {
+                            config.correo_electronico && (
+                                <div class="bg-white p-10 shadow-sm border-t-4 border-accent hover:shadow-xl transition duration-500">
+                                    <span class="text-5xl mb-6 block">✉️</span>
+                                    <h3 class="text-xs font-bold text-accent uppercase tracking-[0.2em] mb-3">
+                                        Correo Electrónico
+                                    </h3>
+                                    <div class="space-y-2">
+                                        <a
+                                            href={`mailto:${config.correo_electronico}`}
+                                            class="text-primary font-bold text-lg block hover:text-accent transition break-all"
+                                        >
+                                            {config.correo_electronico}
+                                        </a>
+                                        {config.correo_electronico_opcional && (
+                                            <a
+                                                href={`mailto:${config.correo_electronico_opcional}`}
+                                                class="text-gray-500 font-light block hover:text-accent transition break-all text-sm"
+                                            >
+                                                {
+                                                    config.correo_electronico_opcional
+                                                }
+                                            </a>
+                                        )}
+                                    </div>
+                                </div>
+                            )
+                        }
+
+                        <!-- WhatsApp -->
+                        {
+                            config.link_whatsapp && (
+                                <div class="bg-white p-10 shadow-sm border-t-4 border-green-500 hover:shadow-xl transition duration-500">
+                                    <span class="text-5xl mb-6 block">💬</span>
+                                    <h3 class="text-xs font-bold text-green-600 uppercase tracking-[0.2em] mb-3">
+                                        WhatsApp
+                                    </h3>
+                                    <p class="text-gray-500 text-sm mb-4">
+                                        Atención inmediata y personalizada.
+                                    </p>
+                                    <a
+                                        href={config.link_whatsapp}
+                                        target="_blank"
+                                        class="inline-block bg-green-500 text-white font-bold px-8 py-3 rounded-sm hover:bg-primary transition-colors duration-300 uppercase tracking-widest text-xs"
+                                    >
+                                        Chat Inmediato
+                                    </a>
+                                </div>
+                            )
+                        }
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="pt-12 border-t border-gray-200">
+                        <h3
+                            class="text-sm font-bold text-primary uppercase tracking-[0.3em] mb-8"
+                        >
+                            Nuestras Redes Sociales
+                        </h3>
+                        <div class="flex justify-center gap-6">
+                            {
+                                config.link_instagram && (
+                                    <a
+                                        href={config.link_instagram}
+                                        target="_blank"
+                                        class="w-16 h-16 bg-white shadow-sm text-primary flex items-center justify-center hover:bg-accent hover:text-primary hover:shadow-xl transition-all duration-500 rounded-full"
+                                        title="Instagram"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="24"
+                                            height="24"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
+                                            <>
+                                                <rect
+                                                    x="2"
+                                                    y="2"
+                                                    width="20"
+                                                    height="20"
+                                                    rx="5"
+                                                    ry="5"
+                                                />
+                                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                                                <line
+                                                    x1="17.5"
+                                                    y1="6.5"
+                                                    x2="17.51"
+                                                    y2="6.5"
+                                                />
+                                            </>
+                                        </svg>
+                                    </a>
+                                )
+                            }
+                            {
+                                config.link_facebook && (
+                                    <a
+                                        href={config.link_facebook}
+                                        target="_blank"
+                                        class="w-16 h-16 bg-white shadow-sm text-primary flex items-center justify-center hover:bg-accent hover:text-primary hover:shadow-xl transition-all duration-500 rounded-full"
+                                        title="Facebook"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="24"
+                                            height="24"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
+                                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                                        </svg>
+                                    </a>
+                                )
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map / Visual separator -->
+    <section
+        class="h-[400px] bg-concrete grayscale opacity-50 relative overflow-hidden border-y border-gray-200"
+    >
+        <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center">
+                <span class="text-6xl block mb-4">🏗️</span>
+                <p class="text-primary font-bold uppercase tracking-widest">
+                    Construyendo en todo el territorio Colombiano
+                </p>
+            </div>
+        </div>
+    </section>
+</Layout>

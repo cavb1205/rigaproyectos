@@ -13,6 +13,12 @@ export async function getProjects() {
   return data;
 }
 
+export async function getProjectBySlug(slug) {
+  const res = await fetch(`${API_URL}/proyectos?slug=${slug}&_embed`);
+  const data = await res.json();
+  return data[0];
+}
+
 export async function getServices() {
   const res = await fetch(`${API_URL}/servicios?_embed`);
   const data = await res.json();
