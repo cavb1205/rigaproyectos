@@ -55,7 +55,7 @@ if (config.logo_principal && typeof config.logo_principal === "number") {
                 "Riga Proyectos - Construcción e Ingeniería en Colombia"}
         />
         <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" href="/favicon.ico" />
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
 
@@ -86,14 +86,6 @@ if (config.logo_principal && typeof config.logo_principal === "number") {
             property="twitter:image"
             content={new URL(image || logoSrc, Astro.url)}
         />
-
-        <!-- Google Fonts: Oswald (Headers) & Inter (Body) -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Oswald:wght@300;400;500;700&display=swap"
-            rel="stylesheet"
-        />
     </head>
     <body class="font-body bg-light text-primary flex flex-col min-h-screen">
         <Analytics />
@@ -114,7 +106,7 @@ if (config.logo_principal && typeof config.logo_principal === "number") {
                                 class="h-16 md:h-20 w-auto object-contain brightness-0 invert"
                             />
                         ) : (
-                            <div class="text-2xl font-bold font-display uppercase tracking-wider text-white">
+                            <div class="text-2xl font-bold font-bank uppercase tracking-wider text-white">
                                 RIGA Proyectos
                             </div>
                         )
@@ -127,17 +119,17 @@ if (config.logo_principal && typeof config.logo_principal === "number") {
                 >
                     <a
                         href="/"
-                        class="hover:text-accent transition duration-300"
+                        class="hover:text-accent transition duration-300 font-franklin font-demi"
                         >Inicio</a
                     >
                     <a
                         href="/nosotros"
-                        class="hover:text-accent transition duration-300"
+                        class="hover:text-accent transition duration-300 font-franklin font-demi"
                         >Nosotros</a
                     >
                     <a
                         href="/proyectos"
-                        class="hover:text-accent transition duration-300"
+                        class="hover:text-accent transition duration-300 font-franklin font-demi"
                         >Proyectos</a
                     >
 
@@ -145,7 +137,7 @@ if (config.logo_principal && typeof config.logo_principal === "number") {
                         config.link_whatsapp && (
                             <a
                                 href="/contacto"
-                                class="bg-accent text-primary px-5 py-2 hover:bg-white transition duration-300 font-bold flex items-center gap-2 rounded-sm"
+                                class="bg-accent text-primary px-5 py-2 hover:bg-white transition duration-300 font-bold flex items-center gap-2 rounded-sm font-franklin"
                             >
                                 Contacto
                             </a>

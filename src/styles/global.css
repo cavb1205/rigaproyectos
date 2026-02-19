@@ -2,10 +2,19 @@
 
 :root {
   /* Colors extracted from the images */
-  --color-primary: #121212; /* Dark/Black */
-  --color-accent: #FADB7A;  /* Light Yellow */
-  --color-light: #F9F9F7;   /* Off-white/Cream */
-  --color-concrete: #E5E5E5; /* Light grey */
+  --color-primary: #121212;
+  /* Dark/Black */
+  --color-accent: #FADB7A;
+  /* Light Yellow */
+  --color-light: #F9F9F7;
+  /* Off-white/Cream */
+  --color-concrete: #E5E5E5;
+  /* Light grey */
+
+  /* Typography */
+  --font-primary: "Franklin Gothic Medium", "Franklin Gothic", "ITC Franklin Gothic", Helvetica, Arial, sans-serif;
+  --font-secondary: "BankGothic Lt BT", "Bank Gothic", "BankGothic MD BT", sans-serif;
+  --font-support: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
 
 @theme {
@@ -13,17 +22,55 @@
   --color-accent: var(--color-accent);
   --color-light: var(--color-light);
   --color-concrete: var(--color-concrete);
-  
-  --font-display: 'Oswald', sans-serif;
-  --font-body: 'Inter', sans-serif;
+
+  --font-primary: var(--font-primary);
+  --font-secondary: var(--font-secondary);
+  --font-support: var(--font-support);
 }
 
 body {
-  font-family: var(--font-body);
+  font-family: var(--font-primary);
   background-color: var(--color-light);
   color: var(--color-primary);
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Specific Font Utilities */
+.font-franklin {
+  font-family: var(--font-primary);
+}
+
+.font-bank {
+  font-family: var(--font-secondary);
+}
+
+.font-century {
+  font-family: var(--font-support);
+}
+
+/* Franklin Gothic Weight Variants Mapping */
+.font-book {
+  font-weight: 300;
+}
+
+.font-regular {
+  font-weight: 400;
+}
+
+.font-demi {
+  font-weight: 600;
+}
+
+.font-bold {
+  font-weight: 700;
 }
