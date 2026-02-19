@@ -1,16 +1,14 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { getProjects } from "../../lib/wordpress";
+import { getProjectBySlug } from "../../lib/wordpress";
+const { slug } = Astro.params;
 
-export async function getStaticPaths() {
-    const projects = await getProjects();
-    return projects.map((project) => ({
-        params: { slug: project.slug },
-        props: { project },
-    }));
-}
+if (!slug) return Astro.redirect("/404");
 
-const { project } = Astro.props as any;
+const project = await getProjectBySlug(slug);
+
+if (!project) return Astro.redirect("/404");
+
 const acf = project?.acf;
 
 // Helper to get gallery images safely
