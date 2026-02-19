@@ -1,5 +1,5 @@
 ---
-const { title } = Astro.props;
+const { title, description, image } = Astro.props;
 import "../styles/global.css";
 import { getPageData } from "../lib/wordpress";
 import Analytics from "@vercel/analytics/astro";
@@ -51,12 +51,41 @@ if (config.logo_principal && typeof config.logo_principal === "number") {
         <meta charset="UTF-8" />
         <meta
             name="description"
-            content="Riga Proyectos - Construcción e Ingeniería en Colombia"
+            content={description ||
+                "Riga Proyectos - Construcción e Ingeniería en Colombia"}
         />
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={Astro.url} />
+        <meta property="og:title" content={title} />
+        <meta
+            property="og:description"
+            content={description ||
+                "Riga Proyectos - Construcción e Ingeniería en Colombia"}
+        />
+        <meta
+            property="og:image"
+            content={new URL(image || logoSrc, Astro.url)}
+        />
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={Astro.url} />
+        <meta property="twitter:title" content={title} />
+        <meta
+            property="twitter:description"
+            content={description ||
+                "Riga Proyectos - Construcción e Ingeniería en Colombia"}
+        />
+        <meta
+            property="twitter:image"
+            content={new URL(image || logoSrc, Astro.url)}
+        />
 
         <!-- Google Fonts: Oswald (Headers) & Inter (Body) -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />

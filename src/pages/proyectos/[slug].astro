@@ -16,7 +16,12 @@ const gallery = acf?.photo_gallery?.galeria_proyecto?.[0] || [];
 const featuredImage = project._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
 ---
 
-<Layout title={`${project.title.rendered} | Riga Proyectos`}>
+<Layout
+    title={`${project.title.rendered} | Riga Proyectos`}
+    description={acf?.alcance_obra?.substring(0, 160) ||
+        "Conoce más sobre este proyecto de infraestructura realizado por Riga Proyectos."}
+    image={featuredImage}
+>
     <!-- Hero Section -->
     <section
         class="relative h-[60vh] flex items-end bg-primary overflow-hidden"
