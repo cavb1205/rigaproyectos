@@ -1,22 +1,43 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getProjects, getServices } from '../lib/wordpress';
+import { getProjects, getServices, getSiteConfig } from '../lib/wordpress';
 
 // Fetch data
 const projectsData = await getProjects();
 const servicesData = await getServices();
+const config = await getSiteConfig();
 
 const projects = Array.isArray(projectsData) ? projectsData : [];
 const services = Array.isArray(servicesData) ? servicesData : [];
+
+// Robust logo logic (similar to Layout.astro)
+let logoSrc = "/images/logo-placeholder.png"; 
+if (config && config.logo_principal) {
+    if (typeof config.logo_principal === "number") {
+        try {
+            const mediaRes = await fetch(`https://riga-api.vnfcdx.easypanel.host/wp-json/wp/v2/media/${config.logo_principal}`);
+            const mediaData = await mediaRes.json();
+            if (mediaData.source_url) logoSrc = mediaData.source_url;
+        } catch (e) {
+            console.error("Error fetching logo in Hero:", e);
+        }
+    } else if (config.logo_principal.url) {
+        logoSrc = config.logo_principal.url;
+    }
+}
 ---
 
 <Layout title="Riga Proyectos - Construcción en Colombia">
   <!-- Hero Section -->
   <section class="h-screen relative flex items-center justify-center bg-[url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2670')] bg-cover bg-center text-white">
     <div class="absolute inset-0 bg-black/60 z-0"></div> <!-- Overlay -->
-    <div class="z-10 text-center max-w-4xl px-4">
-      <h1 class="text-6xl md:text-8xl font-bold uppercase tracking-wide mb-4">
-        RIGA <span class="text-accent font-light">Proyectos</span>
+    <div class="z-10 text-center max-w-4xl px-4 flex flex-col items-center">
+      <h1 class="mb-8">
+        <img 
+          src={logoSrc} 
+          alt="Riga Proyectos" 
+          class="h-40 md:h-64 w-auto object-contain drop-shadow-2xl"
+        />
       </h1>
       <p class="text-xl md:text-2xl font-light tracking-widest uppercase mb-8 border-t border-b border-accent py-4 inline-block">
         Diseñamos y construimos tus sueños
