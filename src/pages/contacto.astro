@@ -149,77 +149,87 @@ const config = (await getSiteConfig()) || {};
                     </div>
 
                     <!-- Social Links -->
-                    <div class="pt-12 border-t border-gray-200">
-                        <h3
-                            class="text-sm font-bold text-primary uppercase tracking-[0.3em] mb-8"
-                        >
-                            Nuestras Redes Sociales
-                        </h3>
-                        <div class="flex justify-center gap-6">
-                            {
-                                config.link_instagram && (
-                                    <a
-                                        href={config.link_instagram}
-                                        target="_blank"
-                                        class="w-16 h-16 bg-white shadow-sm text-primary flex items-center justify-center hover:bg-accent hover:text-primary hover:shadow-xl transition-all duration-500 rounded-full"
-                                        title="Instagram"
-                                    >
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            stroke-width="2"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
+                    <div class="pt-16 mt-8 border-t border-gray-100">
+                        <div class="card-construction p-10 py-12">
+                            <h3
+                                class="text-xs font-bold text-accent uppercase tracking-[0.4em] mb-8 text-center"
+                            >
+                                Sigamos Conectados
+                            </h3>
+                            <div class="flex justify-center gap-8">
+                                {
+                                    config.link_instagram && (
+                                        <a
+                                            href={config.link_instagram}
+                                            target="_blank"
+                                            class="group flex flex-col items-center gap-3"
+                                            title="Instagram"
                                         >
-                                            <>
-                                                <rect
-                                                    x="2"
-                                                    y="2"
-                                                    width="20"
-                                                    height="20"
-                                                    rx="5"
-                                                    ry="5"
-                                                />
-                                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                                                <line
-                                                    x1="17.5"
-                                                    y1="6.5"
-                                                    x2="17.51"
-                                                    y2="6.5"
-                                                />
-                                            </>
-                                        </svg>
-                                    </a>
-                                )
-                            }
-                            {
-                                config.link_facebook && (
-                                    <a
-                                        href={config.link_facebook}
-                                        target="_blank"
-                                        class="w-16 h-16 bg-white shadow-sm text-primary flex items-center justify-center hover:bg-accent hover:text-primary hover:shadow-xl transition-all duration-500 rounded-full"
-                                        title="Facebook"
-                                    >
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            stroke-width="2"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
+                                            <div class="w-14 h-14 bg-primary text-white flex items-center justify-center rounded-none group-hover:bg-accent group-hover:text-primary transition-all duration-300">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="24"
+                                                    height="24"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                >
+                                                    <rect
+                                                        x="2"
+                                                        y="2"
+                                                        width="20"
+                                                        height="20"
+                                                        rx="5"
+                                                        ry="5"
+                                                    />
+                                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                                                    <line
+                                                        x1="17.5"
+                                                        y1="6.5"
+                                                        x2="17.51"
+                                                        y2="6.5"
+                                                    />
+                                                </svg>
+                                            </div>
+                                            <span class="text-[10px] uppercase font-bold tracking-widest text-gray-400 group-hover:text-primary transition-colors">
+                                                Instagram
+                                            </span>
+                                        </a>
+                                    )
+                                }
+                                {
+                                    config.link_facebook && (
+                                        <a
+                                            href={config.link_facebook}
+                                            target="_blank"
+                                            class="group flex flex-col items-center gap-3"
+                                            title="Facebook"
                                         >
-                                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-                                        </svg>
-                                    </a>
-                                )
-                            }
+                                            <div class="w-14 h-14 bg-primary text-white flex items-center justify-center rounded-none group-hover:bg-accent group-hover:text-primary transition-all duration-300">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="24"
+                                                    height="24"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                >
+                                                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                                                </svg>
+                                            </div>
+                                            <span class="text-[10px] uppercase font-bold tracking-widest text-gray-400 group-hover:text-primary transition-colors">
+                                                Facebook
+                                            </span>
+                                        </a>
+                                    )
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -228,15 +238,41 @@ const config = (await getSiteConfig()) || {};
     </section>
 
     <!-- Map / Visual separator -->
-    <section
-        class="h-[400px] bg-concrete grayscale opacity-50 relative overflow-hidden border-y border-gray-200"
-    >
-        <div class="absolute inset-0 flex items-center justify-center">
-            <div class="text-center">
-                <span class="text-6xl block mb-4">🏗️</span>
-                <p class="text-primary font-bold uppercase tracking-widest">
-                    Construyendo en todo el territorio Colombiano
-                </p>
+    <section class="py-24 bg-primary text-white relative overflow-hidden">
+        <!-- Technical Watermark Background -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+            <div
+                class="absolute top-0 right-0 text-[25rem] font-bold leading-none font-bank -rotate-12 translate-x-1/4"
+            >
+                C
+            </div>
+            <div
+                class="absolute bottom-0 left-0 text-[25rem] font-bold leading-none font-bank rotate-12 -translate-x-1/4"
+            >
+                CO
+            </div>
+        </div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-3xl mx-auto text-center">
+                <div class="flex flex-col items-center">
+                    <span class="text-accent text-6xl mb-8">🏗️</span>
+                    <h2
+                        class="text-4xl md:text-5xl font-bold uppercase tracking-tighter mb-6"
+                    >
+                        Presencia en toda <span class="text-accent"
+                            >Colombia</span
+                        >
+                    </h2>
+                    <div class="h-1 w-24 bg-accent mb-8"></div>
+                    <p
+                        class="text-xl text-gray-400 font-light uppercase tracking-[0.2em] leading-relaxed"
+                    >
+                        Construyendo con precisión y excelencia desde cada
+                        rincón del país para proyectar el futuro de la
+                        infraestructura.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
