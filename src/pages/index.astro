@@ -8,7 +8,10 @@ const servicesData = await getServices();
 const config = await getSiteConfig();
 
 const projects = Array.isArray(projectsData) ? projectsData : [];
-const services = Array.isArray(servicesData) ? servicesData : [];
+const services = Array.isArray(servicesData) 
+  ? servicesData.sort((a: any, b: any) => a.id - b.id) 
+  : [];
+
 
 // Robust logo logic (similar to Layout.astro)
 let logoSrc = "/images/logo-placeholder.png"; 
