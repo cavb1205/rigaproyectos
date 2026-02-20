@@ -90,17 +90,60 @@ const featuredImage = project._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
                                     Galería del{" "}
                                     <span class="text-accent">Proyecto</span>
                                 </h2>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    {gallery.map((img: any) => (
-                                        <div class="aspect-video overflow-hidden bg-gray-200 group">
+                                <div
+                                    class="grid grid-cols-1 md:grid-cols-2 gap-4"
+                                    id="project-gallery"
+                                >
+                                    {gallery.map((img: any, index: number) => (
+                                        <div
+                                            class="aspect-video overflow-hidden bg-gray-200 group relative cursor-pointer gallery-item"
+                                            data-index={index}
+                                        >
                                             <img
                                                 src={
                                                     img.full_image_url ||
                                                     img.url
                                                 }
                                                 alt={img.title}
-                                                class="w-full h-full object-cover hover:scale-105 transition-transform duration-700 cursor-pointer"
+                                                class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                                             />
+                                            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="32"
+                                                    height="32"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="white"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                >
+                                                    <circle
+                                                        cx="11"
+                                                        cy="11"
+                                                        r="8"
+                                                    />
+                                                    <line
+                                                        x1="21"
+                                                        y1="21"
+                                                        x2="16.65"
+                                                        y2="16.65"
+                                                    />
+                                                    <line
+                                                        x1="11"
+                                                        y1="8"
+                                                        x2="11"
+                                                        y2="14"
+                                                    />
+                                                    <line
+                                                        x1="8"
+                                                        y1="11"
+                                                        x2="14"
+                                                        y2="11"
+                                                    />
+                                                </svg>
+                                            </div>
                                         </div>
                                     ))}
                                 </div>
@@ -234,4 +277,167 @@ const featuredImage = project._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
             </a>
         </div>
     </section>
+
+    <!-- Lightbox Modal -->
+    <div
+        id="lightbox"
+        class="fixed inset-0 z-[100] bg-black/95 hidden flex-col items-center justify-center p-4 md:p-10 backdrop-blur-sm"
+    >
+        <!-- Close button -->
+        <button
+            id="close-lightbox"
+            class="absolute top-6 right-6 text-white hover:text-accent transition-colors z-[110]"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="40"
+                height="40"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><line x1="18" y1="6" x2="6" y2="18"></line><line
+                    x1="6"
+                    y1="6"
+                    x2="18"
+                    y2="18"></line></svg
+            >
+        </button>
+
+        <!-- Navigation -->
+        <button
+            id="prev-image"
+            class="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-accent transition-colors p-2 z-[110]"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="48"
+                height="48"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><polyline points="15 18 9 12 15 6"></polyline></svg
+            >
+        </button>
+
+        <button
+            id="next-image"
+            class="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-accent transition-colors p-2 z-[110]"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="48"
+                height="48"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><polyline points="9 18 15 12 9 6"></polyline></svg
+            >
+        </button>
+
+        <!-- Image Container -->
+        <div class="relative w-full h-full flex items-center justify-center">
+            <img
+                id="lightbox-img"
+                src=""
+                alt=""
+                class="max-w-full max-h-full object-contain select-none shadow-2xl transition-opacity duration-300 opacity-0"
+            />
+        </div>
+
+        <!-- Counter -->
+        <div
+            id="lightbox-counter"
+            class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/60 font-medium tracking-widest text-sm uppercase"
+        >
+            1 / 1
+        </div>
+    </div>
+
+    <script is:inline>
+        document.addEventListener("DOMContentLoaded", () => {
+            const gallery = document.getElementById("project-gallery");
+            if (!gallery) return;
+
+            const items = gallery.querySelectorAll(".gallery-item");
+            const lightbox = document.getElementById("lightbox");
+            const lightboxImg = document.getElementById("lightbox-img");
+            const counter = document.getElementById("lightbox-counter");
+            const closeBtn = document.getElementById("close-lightbox");
+            const prevBtn = document.getElementById("prev-image");
+            const nextBtn = document.getElementById("next-image");
+
+            let currentIndex = 0;
+            const images = Array.from(items).map(
+                (item) => item.querySelector("img").src,
+            );
+
+            const openLightbox = (index) => {
+                currentIndex = index;
+                updateLightbox();
+                lightbox.classList.remove("hidden");
+                lightbox.classList.add("flex");
+                document.body.style.overflow = "hidden";
+            };
+
+            const closeLightbox = () => {
+                lightbox.classList.add("hidden");
+                lightbox.classList.remove("flex");
+                document.body.style.overflow = "";
+            };
+
+            const updateLightbox = () => {
+                lightboxImg.style.opacity = "0";
+                setTimeout(() => {
+                    lightboxImg.src = images[currentIndex];
+                    counter.textContent = `${currentIndex + 1} / ${images.length}`;
+                    lightboxImg.onload = () => {
+                        lightboxImg.style.opacity = "1";
+                    };
+                }, 200);
+            };
+
+            const nextImage = () => {
+                currentIndex = (currentIndex + 1) % images.length;
+                updateLightbox();
+            };
+
+            const prevImage = () => {
+                currentIndex =
+                    (currentIndex - 1 + images.length) % images.length;
+                updateLightbox();
+            };
+
+            items.forEach((item, index) => {
+                item.addEventListener("click", () => openLightbox(index));
+            });
+
+            closeBtn.addEventListener("click", closeLightbox);
+            prevBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                prevImage();
+            });
+            nextBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                nextImage();
+            });
+            lightbox.addEventListener("click", closeLightbox);
+            lightboxImg.addEventListener("click", (e) => e.stopPropagation());
+
+            document.addEventListener("keydown", (e) => {
+                if (lightbox.classList.contains("hidden")) return;
+                if (e.key === "Escape") closeLightbox();
+                if (e.key === "ArrowRight") nextImage();
+                if (e.key === "ArrowLeft") prevImage();
+            });
+        });
+    </script>
 </Layout>
