@@ -53,7 +53,7 @@ const config = (await getSiteConfig()) || {};
                         <!-- Address -->
                         {
                             config.direccion_oficina && (
-                                <div class="bg-white p-10 shadow-sm border-t-4 border-accent hover:shadow-xl transition duration-500">
+                                <div class="card-construction p-10 border-t-4 border-accent">
                                     <span class="text-5xl mb-6 block">📍</span>
                                     <h3 class="text-xs font-bold text-accent uppercase tracking-[0.2em] mb-3">
                                         Ubicación
@@ -68,7 +68,7 @@ const config = (await getSiteConfig()) || {};
                         <!-- Phone -->
                         {
                             config.telefono_contacto && (
-                                <div class="bg-white p-10 shadow-sm border-t-4 border-accent hover:shadow-xl transition duration-500">
+                                <div class="card-construction p-10 border-t-4 border-accent">
                                     <span class="text-5xl mb-6 block">📞</span>
                                     <h3 class="text-xs font-bold text-accent uppercase tracking-[0.2em] mb-3">
                                         Teléfonos
@@ -98,7 +98,7 @@ const config = (await getSiteConfig()) || {};
                         <!-- Email -->
                         {
                             config.correo_electronico && (
-                                <div class="bg-white p-10 shadow-sm border-t-4 border-accent hover:shadow-xl transition duration-500">
+                                <div class="card-construction p-10 border-t-4 border-accent">
                                     <span class="text-5xl mb-6 block">✉️</span>
                                     <h3 class="text-xs font-bold text-accent uppercase tracking-[0.2em] mb-3">
                                         Correo Electrónico
@@ -128,7 +128,7 @@ const config = (await getSiteConfig()) || {};
                         <!-- WhatsApp -->
                         {
                             config.link_whatsapp && (
-                                <div class="bg-white p-10 shadow-sm border-t-4 border-green-500 hover:shadow-xl transition duration-500">
+                                <div class="card-construction p-10 border-t-4 border-green-500">
                                     <span class="text-5xl mb-6 block">💬</span>
                                     <h3 class="text-xs font-bold text-green-600 uppercase tracking-[0.2em] mb-3">
                                         WhatsApp
@@ -139,7 +139,7 @@ const config = (await getSiteConfig()) || {};
                                     <a
                                         href={config.link_whatsapp}
                                         target="_blank"
-                                        class="inline-block bg-green-500 text-white font-bold px-8 py-3 rounded-sm hover:bg-primary transition-colors duration-300 uppercase tracking-widest text-xs"
+                                        class="inline-block bg-green-500 text-white font-bold px-8 py-3 rounded-sm hover:bg-construction-dark transition-colors duration-300 uppercase tracking-widest text-xs"
                                     >
                                         Chat Inmediato
                                     </a>

@@ -29,7 +29,7 @@ const projects = Array.isArray(projectsData) ? projectsData : [];
       {projects.length > 0 ? (
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {projects.map((project) => (
-            <a href={`/proyectos/${project.slug}`} class="group block bg-white shadow-sm hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden">
+            <a href={`/proyectos/${project.slug}`} class="group block transition-all duration-500 card-construction">
               <div class="relative h-80 overflow-hidden bg-gray-200">
                 {project._embedded && project._embedded['wp:featuredmedia'] ? (
                   <img 
