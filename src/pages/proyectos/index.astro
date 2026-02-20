@@ -70,11 +70,20 @@ const projects = Array.isArray(projectsData) ? projectsData : [];
   </section>
 
   <!-- CTA Section -->
-  <section class="py-20 bg-construction border-t border-gray-200">
-    <div class="container mx-auto px-4 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold text-primary uppercase mb-8 tracking-tighter">¿Tienes un proyecto en mente?</h2>
-      <a href="/contacto" class="inline-flex items-center gap-4 bg-primary text-white font-bold py-4 px-10 hover:bg-accent hover:text-primary transition duration-300 uppercase tracking-widest">
-        Trabajemos Juntos
+  <section class="py-24 bg-primary text-white relative overflow-hidden">
+    <!-- Technical Watermark Background -->
+    <div class="absolute inset-0 opacity-10 pointer-events-none select-none">
+      <div class="absolute top-0 right-0 text-[20rem] font-bold leading-none font-bank -rotate-12 translate-x-1/4">R</div>
+      <div class="absolute bottom-0 left-0 text-[10rem] font-bold leading-none font-bank rotate-12 -translate-x-1/8">RIGA</div>
+    </div>
+
+    <div class="container mx-auto px-4 text-center relative z-10">
+      <span class="text-accent font-bold uppercase tracking-[0.3em] text-sm mb-4 block">¿Listo para empezar?</span>
+      <h2 class="text-4xl md:text-5xl font-bold text-white uppercase mb-10 tracking-tighter">
+        Transformemos tus <span class="text-accent">ideas</span> en estructuras reales
+      </h2>
+      <a href="/contacto" class="inline-flex items-center gap-4 border-2 border-accent text-accent font-bold py-4 px-12 hover:bg-accent hover:text-primary transition duration-300 uppercase tracking-widest text-sm shadow-xl">
+        Hablemos de tu proyecto
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
       </a>
     </div>
